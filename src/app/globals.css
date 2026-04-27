@@ -1,26 +1,93 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-bg-dark: #0F1419;
+  --color-brand-bg-light: #1A1F2E;
+  --color-brand-cyan: #00D9FF;
+  --color-brand-cyan-glow: rgba(0, 217, 255, 0.4);
+  --color-brand-cyan-muted: rgba(0, 217, 255, 0.2);
+  --color-brand-gray: #1E2330;
+  --color-brand-gray-light: #2A3142;
+  --color-brand-text: #FFFFFF;
+  --color-brand-text-muted: #B0B8C1;
+  --color-brand-border: rgba(255, 255, 255, 0.1);
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-brand-bg-dark);
+  background: linear-gradient(135deg, var(--color-brand-bg-dark) 0%, var(--color-brand-bg-light) 100%);
+  color: var(--color-brand-text);
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Utilities for Animations and Shadows based on PRD requirements */
+@utility text-glow {
+  text-shadow: 0 0 10px var(--color-brand-cyan-glow);
+}
+
+@utility box-glow {
+  box-shadow: 0 0 15px var(--color-brand-cyan-glow);
+}
+
+@utility box-glow-active {
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.6), inset 0 0 8px rgba(0, 217, 255, 0.2);
+}
+
+@utility focus-ring {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: 2px;
+}
+
+/* Base custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-gray-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-cyan-muted);
+}
+
+/* Keyframe animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0.5deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(0, 217, 255, 0.6);
+  }
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
